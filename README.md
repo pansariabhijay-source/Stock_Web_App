@@ -1,6 +1,24 @@
-# Stock Prediction Web Application
+# 🚀 Stock Prediction Web App  
 
-Production-grade ML system for stock price prediction with ensemble models (XGBoost + Neural Network).
+![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)
+![FastAPI](https://img.shields.io/badge/Backend-FastAPI-green)
+![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-red)
+![ML](https://img.shields.io/badge/ML-XGBoost%20%2B%20Neural%20Net-orange)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
+A **production-grade stock price prediction platform** using **FastAPI + Streamlit** with an ensemble of ML models.
+
+---
+
+## 📌 Overview  
+
+This project predicts **next-day stock closing prices** and provides:
+
+- 📈 Price Prediction  
+- 📊 Backtesting & Evaluation  
+- 🔍 Model Explainability  
+- 🧠 Hybrid ML (XGBoost + Neural Network)  
+
 
 ## 🏗️ Architecture
 
