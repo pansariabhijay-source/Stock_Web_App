@@ -1,0 +1,264 @@
+{
+  "models": {
+    "20251218_134128": {
+      "xgboost": {
+        "version": "20251218_134128",
+        "model_type": "xgboost",
+        "model_path": "20251218_134128/xgboost_model.json",
+        "registered_at": "2025-12-18T13:51:59.216706",
+        "metadata": {}
+      },
+      "neural_network": {
+        "version": "20251218_134128",
+        "model_type": "neural_network",
+        "model_path": "20251218_134128/neural_network",
+        "registered_at": "2025-12-18T13:51:59.217839",
+        "metadata": {}
+      }
+    },
+    "20251218_151238": {
+      "xgboost": {
+        "version": "20251218_151238",
+        "model_type": "xgboost",
+        "model_path": "20251218_151238/xgboost_model.json",
+        "registered_at": "2025-12-18T15:19:50.465860",
+        "metadata": {
+          "version": "20251218_151238",
+          "model_type": "xgboost",
+          "feature_names": [
+            "Open Price",
+            "High Price",
+            "Low Price",
+            "Close Price",
+            "Close_lag_1",
+            "Close_lag_2",
+            "MA_7",
+            "MA_21",
+            "Total Traded Quantity",
+            "Volume_change",
+            "Turnover",
+            "RSI_14",
+            "MACD",
+            "BB_position",
+            "Volatility_14",
+            "Momentum_14"
+          ],
+          "trained_at": "2025-12-18T15:12:38.837683"
+        }
+      },
+      "neural_network": {
+        "version": "20251218_151238",
+        "model_type": "neural_network",
+        "model_path": "20251218_151238/neural_network",
+        "registered_at": "2025-12-18T15:19:50.466176",
+        "metadata": {
+          "version": "20251218_151238",
+          "model_type": "neural_network",
+          "input_dim": 16,
+          "hidden_dims": [
+            64,
+            32
+          ],
+          "trained_at": "2025-12-18T15:12:38.852198"
+        }
+      }
+    },
+    "20251218_152257": {
+      "xgboost": {
+        "version": "20251218_152257",
+        "model_type": "xgboost",
+        "model_path": "20251218_152257/xgboost_model.json",
+        "registered_at": "2025-12-18T15:22:57.169179",
+        "metadata": {
+          "feature_names": [
+            "Open Price",
+            "High Price",
+            "Low Price",
+            "Close Price",
+            "Close_lag_1",
+            "Close_lag_2",
+            "MA_7",
+            "MA_21",
+            "Total Traded Quantity",
+            "Volume_change",
+            "Turnover",
+            "RSI_14",
+            "MACD",
+            "BB_position",
+            "Volatility_14",
+            "Momentum_14"
+          ],
+          "test_rmse": 549.8721033245502,
+          "test_mape": 0.248035722209911
+        }
+      },
+      "neural_network": {
+        "version": "20251218_152257",
+        "model_type": "neural_network",
+        "model_path": "20251218_152257/neural_network",
+        "registered_at": "2025-12-18T15:22:57.169465",
+        "metadata": {
+          "input_dim": 16,
+          "hidden_dims": [
+            64,
+            32
+          ]
+        }
+      }
+    },
+    "20251220_101907": {
+      "lightgbm": {
+        "version": "20251220_101907",
+        "model_type": "lightgbm",
+        "model_path": "20251220_101907/lightgbm_model.txt",
+        "registered_at": "2025-12-20T10:19:07.984759",
+        "metadata": {
+          "feature_names": [
+            "Open Price",
+            "High Price",
+            "Low Price",
+            "Close Price",
+            "Close_lag_1",
+            "Close_lag_2",
+            "MA_7",
+            "MA_21",
+            "Total Traded Quantity",
+            "Volume_change",
+            "Turnover",
+            "RSI_14",
+            "MACD",
+            "BB_position",
+            "Volatility_14",
+            "Momentum_14"
+          ],
+          "test_rmse": 467.3643902081751,
+          "test_mae": 419.54842994875725,
+          "test_r2": -2.691712659744185
+        }
+      },
+      "xgboost": {
+        "version": "20251220_101907",
+        "model_type": "xgboost",
+        "model_path": "20251220_101907/xgboost_model.json",
+        "registered_at": "2025-12-20T10:19:07.985128",
+        "metadata": {
+          "feature_names": [
+            "Open Price",
+            "High Price",
+            "Low Price",
+            "Close Price",
+            "Close_lag_1",
+            "Close_lag_2",
+            "MA_7",
+            "MA_21",
+            "Total Traded Quantity",
+            "Volume_change",
+            "Turnover",
+            "RSI_14",
+            "MACD",
+            "BB_position",
+            "Volatility_14",
+            "Momentum_14"
+          ],
+          "test_rmse": 605.0703462999342,
+          "test_mae": 546.2547953825177,
+          "test_r2": -5.187687767182328
+        }
+      },
+      "lstm": {
+        "version": "20251220_101907",
+        "model_type": "lstm",
+        "model_path": "20251220_101907/lstm",
+        "registered_at": "2025-12-20T10:19:07.985507",
+        "metadata": {
+          "input_dim": 16,
+          "hidden_dim": 128,
+          "test_rmse": 389.9238869921812,
+          "test_mae": 351.47344606795394,
+          "test_r2": -1.569663967436984
+        }
+      }
+    },
+    "20251220_102352": {
+      "lightgbm": {
+        "version": "20251220_102352",
+        "model_type": "lightgbm",
+        "model_path": "20251220_102352/lightgbm_model.txt",
+        "registered_at": "2025-12-20T10:23:52.437344",
+        "metadata": {
+          "feature_names": [
+            "Open Price",
+            "High Price",
+            "Low Price",
+            "Close Price",
+            "Close_lag_1",
+            "Close_lag_2",
+            "MA_7",
+            "MA_21",
+            "Total Traded Quantity",
+            "Volume_change",
+            "Turnover",
+            "RSI_14",
+            "MACD",
+            "BB_position",
+            "Volatility_14",
+            "Momentum_14"
+          ],
+          "test_rmse": 467.3643902081751,
+          "test_mae": 419.54842994875725,
+          "test_r2": -2.691712659744185
+        }
+      },
+      "xgboost": {
+        "version": "20251220_102352",
+        "model_type": "xgboost",
+        "model_path": "20251220_102352/xgboost_model.json",
+        "registered_at": "2025-12-20T10:23:52.437814",
+        "metadata": {
+          "feature_names": [
+            "Open Price",
+            "High Price",
+            "Low Price",
+            "Close Price",
+            "Close_lag_1",
+            "Close_lag_2",
+            "MA_7",
+            "MA_21",
+            "Total Traded Quantity",
+            "Volume_change",
+            "Turnover",
+            "RSI_14",
+            "MACD",
+            "BB_position",
+            "Volatility_14",
+            "Momentum_14"
+          ],
+          "test_rmse": 605.0703462999342,
+          "test_mae": 546.2547953825177,
+          "test_r2": -5.187687767182328
+        }
+      },
+      "lstm": {
+        "version": "20251220_102352",
+        "model_type": "lstm",
+        "model_path": "20251220_102352/lstm",
+        "registered_at": "2025-12-20T10:23:52.449848",
+        "metadata": {
+          "input_dim": 16,
+          "hidden_dim": 128,
+          "test_rmse": 389.9238869921812,
+          "test_mae": 351.47344606795394,
+          "test_r2": -1.569663967436984
+        }
+      }
+    }
+  },
+  "active_version": "20251220_102352",
+  "versions": [
+    "20251218_134128",
+    "20251218_151238",
+    "20251218_152257",
+    "20251220_101907",
+    "20251220_102352"
+  ]
+}
