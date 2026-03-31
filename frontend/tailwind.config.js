@@ -1,0 +1,82 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  darkMode: "class",
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        "on-surface-variant": "#c4c5d9",
+        "inverse-primary": "#104af0",
+        "on-primary-fixed": "#001355",
+        "tertiary": "#ffb2b7",
+        "surface-variant": "#31353f",
+        "on-error-container": "#ffdad6",
+        "error": "#ffb4ab",
+        "on-tertiary": "#67001b",
+        "on-secondary-fixed": "#002113",
+        "on-tertiary-fixed": "#40000d",
+        "on-background": "#dfe2ef",
+        "secondary-container": "#00a572",
+        "surface-container": "#1c1f29",
+        "on-primary": "#002387",
+        "surface-tint": "#b8c3ff",
+        "on-primary-fixed-variant": "#0035bd",
+        "inverse-on-surface": "#2c303a",
+        "surface-container-high": "#262a34",
+        "on-secondary": "#003824",
+        "background": "#0f131c",
+        "tertiary-fixed": "#ffdadb",
+        "primary-container": "#2d5bff",
+        "outline-variant": "#434656",
+        "primary": "#b8c3ff",
+        "on-secondary-container": "#00311f",
+        "surface-dim": "#0f131c",
+        "tertiary-container": "#d12348",
+        "primary-fixed-dim": "#b8c3ff",
+        "on-primary-container": "#efefff",
+        "surface": "#0f131c",
+        "on-tertiary-container": "#ffebeb",
+        "inverse-surface": "#dfe2ef",
+        "outline": "#8e90a2",
+        "error-container": "#93000a",
+        "on-surface": "#dfe2ef",
+        "surface-container-highest": "#31353f",
+        "secondary-fixed": "#6ffbbe",
+        "secondary-fixed-dim": "#4edea3",
+        "surface-container-low": "#181b25",
+        "on-tertiary-fixed-variant": "#92002a",
+        "on-error": "#690005",
+        "primary-fixed": "#dde1ff",
+        "surface-container-lowest": "#0a0e17",
+        "tertiary-fixed-dim": "#ffb2b7",
+        "secondary": "#4edea3",
+        "surface-bright": "#353943",
+        "on-secondary-fixed-variant": "#005236"
+      },
+      fontFamily: {
+        "headline": ["Plus Jakarta Sans", "sans-serif"],
+        "body": ["Inter", "sans-serif"],
+        "label": ["Inter", "sans-serif"]
+      },
+      borderRadius: {
+        "DEFAULT": "0.125rem",
+        "lg": "0.25rem",
+        "xl": "0.5rem",
+        "full": "0.75rem"
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+      },
+      animation: {
+        marquee: 'marquee 30s linear infinite',
+      },
+    },
+  },
+  plugins: [],
+}

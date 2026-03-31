@@ -1,0 +1,54 @@
+# Node & Vite
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs and Data
+logs/
+artifacts/
+*.log
+*.parquet
+*.json
+*.csv
+.env
+
+# Models
+models/*.pkl
+models/*.json
+models/*.md
+predict_error.log
+
+# VSCode / Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
