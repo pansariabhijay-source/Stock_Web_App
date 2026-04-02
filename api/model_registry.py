@@ -284,15 +284,21 @@ class ModelRegistry:
         meta          = model_bundle.get("meta", {})
         feature_names = meta.get("feature_names", list(feature_df.columns))
 
-        # Align features to what the model expects
-        available_features = [f for f in feature_names if f in feature_df.columns]
-        X_latest = feature_df[available_features].iloc[-1:].values.astype(np.float32)
+        # Align features to exactly what the model expects
+        latest_row = feature_df.iloc[-1:]
+        X_aligned = pd.DataFrame(index=latest_row.index, columns=feature_names)
+        for col in feature_names:
+            if col in latest_row.columns:
+                X_aligned[col] = latest_row[col]
+            else:
+                X_aligned[col] = 0.0
+        X_latest = X_aligned.values.astype(np.float32)
 
         # Replace NaN/inf
         X_latest = np.nan_to_num(X_latest, nan=0.0, posinf=0.0, neginf=0.0)
 
         # Run prediction
-        prob = self._run_model_predict(model_bundle, X_latest, model_name, available_features)
+        prob = self._run_model_predict(model_bundle, X_latest, model_name, feature_names)
 
         # Get current price
         current_price = self._get_current_price(ticker)
@@ -326,7 +332,7 @@ class ModelRegistry:
                 prob = model_bundle["model"].predict(X)[0]
             elif model_type == "xgb_clf":
                 import xgboost as xgb
-                dmatrix = xgb.DMatrix(X, feature_names=feature_names) if feature_names else xgb.DMatrix(X)
+                dmatrix = xgb.DMatrix(pd.DataFrame(X, columns=feature_names)) if feature_names else xgb.DMatrix(X)
                 prob = model_bundle["model"].predict(dmatrix)[0]
             elif model_type == "ensemble":
                 data = model_bundle["ensemble_data"]
@@ -337,7 +343,8 @@ class ModelRegistry:
                 if model_type == "lgbm":
                     pred = model_bundle["model"].predict(X)[0]
                 else:
-                    dmatrix = __import__("xgboost").DMatrix(X, feature_names=feature_names) if feature_names else __import__("xgboost").DMatrix(X)
+                    import xgboost as xgb
+                    dmatrix = xgb.DMatrix(pd.DataFrame(X, columns=feature_names)) if feature_names else xgb.DMatrix(X)
                     pred = model_bundle["model"].predict(dmatrix)[0]
                 # Clamp and sigmoid-approximate
                 prob = float(np.clip(0.5 + pred * 10, 0.01, 0.99))
@@ -366,15 +373,23 @@ class ModelRegistry:
                 reg_meta          = reg_bundle.get("meta", {})
                 reg_feature_names = reg_meta.get("feature_names", feature_names)
                 feature_df        = self._features[ticker]
-                avail             = [f for f in reg_feature_names if f in feature_df.columns]
-                X_reg             = feature_df[avail].iloc[-1:].values.astype(np.float32)
-                X_reg             = np.nan_to_num(X_reg, nan=0.0, posinf=0.0, neginf=0.0)
+                
+                latest_row_reg = feature_df.iloc[-1:]
+                X_reg_aligned = pd.DataFrame(index=latest_row_reg.index, columns=reg_feature_names)
+                for col in reg_feature_names:
+                    if col in latest_row_reg.columns:
+                        X_reg_aligned[col] = latest_row_reg[col]
+                    else:
+                        X_reg_aligned[col] = 0.0
+                X_reg = X_reg_aligned.values.astype(np.float32)
+                X_reg = np.nan_to_num(X_reg, nan=0.0, posinf=0.0, neginf=0.0)
 
                 if reg_bundle["type"] == "lgbm":
                     pred = reg_bundle["model"].predict(X_reg)[0]
                 else:
                     import xgboost as xgb
-                    pred = reg_bundle["model"].predict(xgb.DMatrix(X_reg, feature_names=avail))[0]
+                    dmatrix = xgb.DMatrix(pd.DataFrame(X_reg, columns=reg_feature_names))
+                    pred = reg_bundle["model"].predict(dmatrix)[0]
 
                 return float(pred)
             except Exception as e:
@@ -594,3 +609,48 @@ class ModelRegistry:
             if best > 0:
                 accuracy[horizon] = round(best, 4)
         return accuracy
+
+    def get_all_prices(self) -> Dict[str, Dict[str, float]]:
+        """Return the latest price and pct_change for all loaded tickers."""
+        prices = {}
+        for ticker, df in self._features.items():
+            try:
+                if "close" in df.columns and len(df) >= 2:
+                    current_price = float(df["close"].iloc[-1])
+                    prev_price = float(df["close"].iloc[-2])
+                    
+                    # Prevent division by zero
+                    if prev_price != 0:
+                        pct_change = ((current_price - prev_price) / prev_price) * 100
+                    else:
+                        pct_change = 0.0
+                        
+                    prices[ticker] = {
+                        "price": round(current_price, 2),
+                        "pct_change": round(pct_change, 2)
+                    }
+            except Exception as e:
+                logger.debug(f"Could not get price for {ticker}: {e}")
+        return prices
+
+    def get_history(self, ticker: str, days: int = 30) -> List[Dict]:
+        """Return historical closing prices for a ticker."""
+        if ticker not in self._features:
+            return []
+            
+        try:
+            df = self._features[ticker]
+            if "close" not in df.columns:
+                return []
+                
+            recent = df.tail(days)
+            history = []
+            for date, row in recent.iterrows():
+                history.append({
+                    "date": date.strftime("%Y-%m-%d"),
+                    "price": float(row["close"])
+                })
+            return history
+        except Exception as e:
+            logger.debug(f"Error fetching history for {ticker}: {e}")
+            return []

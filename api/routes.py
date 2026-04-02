@@ -31,6 +31,7 @@ from api.schemas import (
     ExplainRequest, ExplainResponse, FeatureImportance,
     BacktestRequest, BacktestResponse, BacktestMetrics,
     ModelsResponse, ModelInfo, HealthResponse,
+    PricesResponse, HistoryResponse
 )
 from api.model_registry import ModelRegistry
 from config import LOG_LEVEL
@@ -262,6 +263,41 @@ async def list_models():
         total_stocks = len(stocks),
         stocks       = stocks,
     )
+
+
+# ── Prices and History ─────────────────────────────────────────────────────────
+
+@router.get("/prices", response_model=PricesResponse)
+async def get_prices():
+    """
+    Get current prices and 1-day percentage changes for all loaded stocks.
+    """
+    _check_registry()
+    try:
+        prices = registry.get_all_prices()
+        return PricesResponse(prices=prices)
+    except Exception as e:
+        logger.error(f"Failed to fetch prices: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/history/{ticker}", response_model=HistoryResponse)
+async def get_history(ticker: str, days: int = 30):
+    """
+    Get historical closing prices for a specific ticker.
+    """
+    _check_registry()
+    ticker = ticker.upper()
+
+    if ticker not in registry.available_tickers:
+        raise HTTPException(status_code=404, detail=f"No data for {ticker}")
+
+    try:
+        history = registry.get_history(ticker, days=days)
+        return HistoryResponse(ticker=ticker, history=history)
+    except Exception as e:
+        logger.error(f"Failed to fetch history for {ticker}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 # ── Regime ─────────────────────────────────────────────────────────────────────

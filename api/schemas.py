@@ -137,3 +137,19 @@ class HealthResponse(BaseModel):
 class ErrorResponse(BaseModel):
     error: str
     detail: str
+
+
+class PriceInfo(BaseModel):
+    price: float
+    pct_change: float
+
+class PricesResponse(BaseModel):
+    prices: Dict[str, PriceInfo]
+
+class HistoryPoint(BaseModel):
+    date: str
+    price: float
+
+class HistoryResponse(BaseModel):
+    ticker: str
+    history: List[HistoryPoint]

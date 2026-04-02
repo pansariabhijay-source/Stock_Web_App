@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts';
 import { cn } from '../lib/utils';
 import { ArrowUpRight, ArrowDownRight, Target } from 'lucide-react';
+import { api } from '../api';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -50,14 +51,36 @@ const ForecastCard = ({ data, onClick }) => {
   let mouseX = useMotionValue(0);
   let mouseY = useMotionValue(0);
 
+  const [history, setHistory] = useState([]);
+
+  useEffect(() => {
+    const fetchSparklineData = async () => {
+      try {
+        // Fetch last 10 days for a more dynamic, accurate sparkline shape
+        const res = await api.getHistory(ticker, 10);
+        if (res && res.history) {
+          setHistory(res.history);
+        }
+      } catch (err) {
+        console.error("Failed to fetch sparkline history for", ticker, err);
+      }
+    };
+    fetchSparklineData();
+  }, [ticker]);
+
   function handleMouseMove({ currentTarget, clientX, clientY }) {
     let { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
   }
 
-  // Fake miniature sparkline data representing predicted trajectory
-  const sparkData = [
+  // Use natural history data for the sparkline, ending with the future expected target
+  const sparkData = history.length > 0 ? [
+    ...history.map(item => ({ value: item.price })),
+    { value: current_price }, // connect current
+    { value: current_price + ((targetPrice - current_price) * 0.3) }, // interpolation
+    { value: parseFloat(targetPrice) }
+  ] : [
     { value: current_price * 0.98 },
     { value: current_price * 0.99 },
     { value: current_price },

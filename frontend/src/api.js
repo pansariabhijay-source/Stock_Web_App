@@ -39,5 +39,17 @@ export const api = {
       top_n: 10
     });
     return res.data;
+  },
+
+  // Get current prices for all available stocks
+  getPrices: async () => {
+    const res = await axios.get(`${API_BASE}/prices`);
+    return res.data; // { prices: { TICKER: { price, pct_change } } }
+  },
+
+  // Get historical prices for charting
+  getHistory: async (ticker, days = 30) => {
+    const res = await axios.get(`${API_BASE}/history/${ticker}?days=${days}`);
+    return res.data; // { ticker, history: [ {date, price} ] }
   }
 };
