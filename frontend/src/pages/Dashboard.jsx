@@ -222,6 +222,11 @@ const Dashboard = () => {
             </div>
           </div>
         </section>
+
+        {/* Footer */}
+        <div className="mt-12 text-center text-slate-500 text-sm">
+          Created by <span className="text-emerald-400 font-medium">Abhijay Pansari</span>
+        </div>
       </div>
 
       {/* SHAP Explanation Modal */}
