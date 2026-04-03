@@ -53,60 +53,35 @@ export function LiveTickerTape() {
   useEffect(() => {
     async function fetchTicker() {
       try {
-        const data = await api.getModels();
-        // Fallback mock data if API fails or is empty
-        let baseStocks = data?.stocks || [];
-        if (baseStocks.length === 0) {
-           baseStocks = [
-             { ticker: 'RELIANCE_NS' }, { ticker: 'HDFCBANK_NS' }, { ticker: 'TCS_NS' },
-             { ticker: 'ICICIBANK_NS' }, { ticker: 'INFY_NS' }, { ticker: 'SBIN_NS' }
-           ];
+        const data = await api.getPrices();
+        if (data && data.prices) {
+          const liveData = Object.keys(data.prices).map(ticker => {
+            const cleanTicker = ticker.replace('_NS', '');
+            return {
+              ticker: cleanTicker,
+              price: data.prices[ticker].price.toFixed(2),
+              pctChange: data.prices[ticker].pct_change
+            };
+          });
+          setTickerData(liveData);
         }
-
-        const simulatedLive = baseStocks.map((stock) => {
-          const price = (Math.random() * 2000 + 100).toFixed(2);
-          const pctChange = (Math.random() * 4 - 2).toFixed(2);
-          return {
-            ticker: stock.ticker.replace('_NS', ''),
-            price,
-            pctChange: parseFloat(pctChange),
-          };
-        });
-        setTickerData(simulatedLive);
       } catch (err) {
-        console.error("Failed to load ticker data, using fallbacks:", err);
-        const fallbacks = ['NIFTY50', 'RELIANCE', 'HDFCBANK', 'TCS', 'ICICIBANK', 'INFY', 'SBIN'];
-        setTickerData(fallbacks.map(t => ({
-           ticker: t,
-           price: (Math.random() * 2000 + 100).toFixed(2),
-           pctChange: parseFloat((Math.random() * 4 - 2).toFixed(2))
-        })));
+        console.error("Failed to load ticker data:", err);
       } finally {
         setLoading(false);
       }
     }
+    
+    // Initial fetch
     fetchTicker();
-  }, []);
 
-  // Update prices slightly to look alive
-  useEffect(() => {
-    if (loading || tickerData.length === 0) return;
-
+    // Poll every 5 seconds for updates
     const interval = setInterval(() => {
-      setTickerData((prev) => 
-        prev.map(item => {
-          // 30% chance to update a specific stock's price to create staggered flashing
-          if (Math.random() > 0.3) return item;
-          
-          const change = (Math.random() - 0.5) * 5;
-          const newPrice = Math.max(0, parseFloat(item.price) + change).toFixed(2);
-          return { ...item, price: newPrice };
-        })
-      );
-    }, 2000);
+      fetchTicker();
+    }, 5000);
 
     return () => clearInterval(interval);
-  }, [loading, tickerData.length]);
+  }, []);
 
   if (loading || tickerData.length === 0) return (
      <div className="w-full bg-[#0B0F19] h-12 border-b border-white/5 animate-pulse" />
