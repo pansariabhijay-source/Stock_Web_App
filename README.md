@@ -1,81 +1,126 @@
-# AlphaStock Terminal | Institutional Intelligence
+AlphaStock Terminal | Institutional Intelligence
 
-AlphaStock Terminal is a sophisticated, Amazon-tier interactive financial dashboard designed for market analysis, predictive modeling, and real-time equity tracking using high-performance machine learning.
+<p align="left"> <img src="https://img.shields.io/badge/Python-3.9+-blue" /> <img src="https://img.shields.io/badge/Backend-FastAPI-green" /> <img src="https://img.shields.io/badge/Frontend-React%2019-black" /> <img src="https://img.shields.io/badge/Machine%20Learning-Scikit--Learn-orange" /> <img src="https://img.shields.io/badge/Models-RF%20%7C%20LR%20%7C%20DT%20%7C%20SVM-purple" /> <img src="https://img.shields.io/badge/License-MIT-yellow" /> </p>
+Description
 
-![AlphaStock Terminal UI](./dashboard/preview.png)
+AlphaStock Terminal is a high-performance financial analytics platform designed to replicate institutional-grade trading dashboards. It integrates real-time market tracking with machine learning driven predictions and explainability systems.
 
-## Overview
+The system is built with a modern reactive frontend and a scalable FastAPI backend capable of delivering probabilistic forecasts and actionable insights on NIFTY 50 equities.
 
-This project seamlessly combines a modern reactive frontend with a resilient FastAPI backend capable of making real-time stochastic and ML-driven predictions for NIFTY 50 Indian market equities.
+Features
+Market Intelligence
+Real-time equity tracking with dynamic price updates
+Infinite ticker tape for continuous monitoring
+Volatility-aware visual feedback
+Predictive Modeling
+Ensemble models using LightGBM and XGBoost
+Multi-horizon predictions for 1-day, 5-day, and 20-day windows
+Expected return estimation with probability scoring
+Explainable AI
+SHAP-based interpretability
+Feature importance visualization
+Transparent reasoning behind predictions
+UI and Experience
+Institutional dark-mode dashboard design
+Bento-grid layout inspired by trading terminals
+Smooth animations powered by Framer Motion
+System Architecture
 
-### Key Capabilities
+Frontend
+React 19 with Vite for ultra-fast rendering
+TailwindCSS for styling
+Recharts for data visualization
 
-- **Institutional Design Philosophy**: Modern dark-mode bento-box grid layouts with interactive Framer Motion elements, mimicking high-value proprietary terminal software.
-- **Micro-Predictions**: LightGBM and XGBoost classifier/regressor ensembles provide dynamic probability scores and expected percentage returns for 1-day, 5-day, and 20-day horizons.
-- **Explainable AI (XAI)**: SHAP (SHapley Additive exPlanations) values provide immediate interpretability for *why* the model made specific predictions (i.e., top impacting features).
-- **Infinite Ticket Tape**: Seamless, animated `<LiveTickerTape />` dynamically tracking price ticks and highlighting moment-to-moment volatility logic.
+Backend
+FastAPI with Uvicorn
+RESTful API design
+Asynchronous request handling
 
-## Stack Arsenal
+Machine Learning Layer
+Scikit-learn pipelines
+LightGBM and XGBoost ensembles
+SHAP for explainability
 
-| Area | Technologies Used |
-|---|---|
-| Frontend | React 19, Vite, TailwindCSS v4, Framer Motion, Recharts, Lucide React, Axios |
-| Backend | Python 3, FastAPI, Uvicorn |
-| Machine Learning | Scikit-Learn, LightGBM, XGBoost, SHAP, Pandas, PyArrow |
-| Data Integration | yFinance for historical OHLCV/Fundamentals |
+Data Layer
+yFinance for historical OHLCV and fundamentals
 
----
-
-## Developer Setup
-
-Currently, this repository represents the fully-working local developer environment MVP.
-
-### 1. Prerequisites 
-
-- Python 3.9+
-- Node.js v18+ 
-- Git
-
-### 2. Backend Orchestration (FastAPI)
-
-\`\`\`bash
-# Create and activate virtual environment (Windows)
+Project Structure
+AlphaStock-Terminal/
+│
+├── api/                # FastAPI backend
+├── frontend/           # React application
+├── models/             # Trained ML models
+├── dashboard/          # UI assets and previews
+├── requirements.txt
+└── README.md
+Getting Started
+Prerequisites
+Python 3.9 or higher
+Node.js 18 or higher
+Git
+Backend Setup
 python -m venv env
-.\\env\\Scripts\\activate
+env\Scripts\activate
 
-# Install requirements
 pip install -r requirements.txt
 
-# Launch FastAPI on localhost:8000
 python -m uvicorn api.main:app --reload --port 8000
-\`\`\`
-*Access the Swagger OpenAPI Documentation at [`http://localhost:8000/docs`](http://localhost:8000/docs)*
 
-### 3. Frontend Terminal (Vite/React)
+API documentation will be available at
+http://localhost:8000/docs
 
-Open a new terminal session.
-
-\`\`\`bash
+Frontend Setup
 cd frontend
 
-# Install Node modules
 npm install
 
-# Instigate Vite development server at localhost:5173
 npm run dev
-\`\`\`
 
----
+Application runs at
+http://localhost:5173
 
-## Roadmap
+API Overview
 
-As part of transitioning from 'Development Grade' to 'Production Grade', the following upgrades are slated:
-- [ ] Migrate `yfinance` to institutional-grade Websocket provider (e.g., Polygon.io, TrueData). 
-- [ ] Implement backend Time-Series Database (TimescaleDB / InfluxDB).
-- [ ] Separate Data Processing pipelines using Celery/Redis message queuing. 
-- [ ] Decouple Model Serving using NVIDIA Triton or MLflow.
-- [ ] Enforce rigid JWT Authentication and tighten CORS constraints. 
+Base URL
 
----
+http://localhost:8000
 
-*Made by Abhijay Pansari*
+Example endpoints
+
+GET /predict/{symbol}
+GET /features/{symbol}
+GET /health
+Model Details
+Gradient boosting models for high accuracy on tabular financial data
+Feature engineering includes technical indicators and lag-based signals
+Ensemble approach improves robustness across market conditions
+Performance Considerations
+FastAPI ensures low latency inference
+Frontend optimized with Vite for minimal load times
+Modular design allows scaling model serving independently
+Roadmap
+Replace yFinance with real-time websocket data providers such as Polygon or TrueData
+Introduce TimescaleDB or InfluxDB for time-series storage
+Add Celery with Redis for asynchronous pipelines
+Deploy model serving via Triton or MLflow
+Implement authentication with JWT and secure API layers
+Deployment Strategy
+
+Recommended production stack
+
+Backend: Dockerized FastAPI behind Nginx
+Frontend: Static deployment via Vercel or CDN
+Models: Dedicated inference service
+Database: Managed time-series database
+Contributing
+Fork the repository
+Create a feature branch
+Commit changes with clear messages
+Open a pull request
+License
+
+This project is licensed under the MIT License.
+
+Author
+
+Abhijay Pansari
