@@ -13,7 +13,7 @@
 
 ---
 
-AlphaStock Terminal is a full-stack, AI-driven financial analytics platform that delivers institutional-grade predictive intelligence for **NIFTY 50** Indian market equities. It combines ensemble machine learning models (LightGBM, XGBoost), Hidden Markov Model-based market regime detection, and SHAP explainability — all served through a high-performance FastAPI backend and a premium dark-mode React dashboard.
+AlphaStock Terminal is a full-stack, AI-driven financial analytics platform that delivers institutional-grade predictive intelligence for **NIFTY 50** Indian market equities. It combines ensemble machine learning models (LightGBM, XGBoost), Hidden Markov Model-based market regime detection, and SHAP explainability all served through a high-performance FastAPI backend and a premium dark-mode React dashboard.
 
 ---
 
