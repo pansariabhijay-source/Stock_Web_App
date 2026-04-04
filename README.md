@@ -97,7 +97,13 @@ pip install -r requirements.txt
 
 python -m uvicorn api.main:app --reload --port 8000
 
-### Frontend Setup
+
+## Frontend Setup
+
+```bash
+cd frontend
+npm install
+npm run dev
 cd frontend
 
 npm install
