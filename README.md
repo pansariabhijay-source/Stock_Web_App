@@ -1,6 +1,5 @@
 # AlphaStock Terminal | Institutional Intelligence
 
-![AlphaStock Terminal UI](./dashboard/preview.png)
 
 <p align="left">
   <img src="https://img.shields.io/badge/Python-3.9+-blue" />
@@ -86,6 +85,8 @@ AlphaStock-Terminal/
 
 ---
 
+## Getting Started
+
 ### Backend Setup
 
 ```bash
@@ -96,49 +97,9 @@ pip install -r requirements.txt
 
 python -m uvicorn api.main:app --reload --port 8000
 
-
 ### Frontend Setup
 cd frontend
 
 npm install
 
 npm run dev
-
-Endpoints
-GET /predict/{symbol}
-GET /features/{symbol}
-GET /health
-Model Details
-Gradient boosting models optimized for tabular financial data
-Feature engineering with technical indicators and lag features
-Ensemble approach for stability across market conditions
-Performance
-FastAPI enables low-latency inference
-Vite ensures fast frontend load times
-Modular architecture supports scalable model serving
-Roadmap
-Replace yFinance with real-time providers (Polygon, TrueData)
-Add TimescaleDB or InfluxDB
-Introduce Celery + Redis pipelines
-Deploy models using Triton or MLflow
-Implement JWT authentication
-Deployment
-Recommended Stack
-Backend: Docker + FastAPI + Nginx
-Frontend: Vercel or CDN
-Models: Dedicated inference service
-Database: Time-series DB
-Contributing
-Fork the repo
-Create a feature branch
-Commit changes
-Open a pull request
-License
-
-MIT License
-
-Author
-
-Abhijay Pansari
-
-## Project Structure
