@@ -97,49 +97,12 @@ pip install -r requirements.txt
 
 python -m uvicorn api.main:app --reload --port 8000
 
+## Frontend Setup
 
-Frontend Setup
+```bash
 cd frontend
 npm install
 npm run dev
-API Endpoints
-GET /predict/{symbol}
-GET /features/{symbol}
-GET /health
-Model Details
-Gradient boosting models optimized for tabular financial data
-Feature engineering using technical indicators and lag features
-Ensemble approach for improved robustness
-Performance
-FastAPI for low-latency inference
-Vite for fast frontend performance
-Modular architecture for scalability
-Roadmap
-Replace yFinance with real-time providers (Polygon, TrueData)
-Add TimescaleDB or InfluxDB
-Introduce Celery and Redis pipelines
-Deploy models using Triton or MLflow
-Implement JWT authentication
-Deployment
-
-Backend: Docker + FastAPI + Nginx
-Frontend: Vercel or CDN
-Models: Dedicated inference service
-Database: Time-series database
-
-Contributing
-Fork the repository
-Create a feature branch
-Commit changes
-Open a pull request
-License
-
-MIT License
-
-Author
-
-Abhijay Pansari
-cd frontend
 
 npm install
 
